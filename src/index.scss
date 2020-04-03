@@ -1,0 +1,14 @@
+@import "~bootstrap/scss/bootstrap";
+
+button,
+.button {
+  margin-bottom: 0 !important;
+  margin-right: 0.5rem;
+}
+
+body {
+  margin: 0;
+  font-family: Hanken Grotesk;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
