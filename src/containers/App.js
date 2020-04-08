@@ -4,13 +4,26 @@ import AddUserForm from "../components/AddUserForm";
 import EditUserForm from "../components/EditUserForm";
 import UserTable from "../components/UserTable";
 import ActionBar from "../components/ActionBar";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import {
+  addUser,
+  removeUser,
+  editUser,
+  searchUser
+} from "../components/actions/userActions";
 //import config from "./config";
 //import Firebase from "firebase";
 
 const App = () => {
   //Firebase.initializeApp(config.firebase);
+  const state = useSelector(state => state);
+  const usersData = useSelector(state => state.users);
+  const dispatch = useDispatch();
+
   // Data
-  const usersData = [
+  /*const usersData = [
     { id: 1, name: "siva", email: "siva@gmail.com", phone: "9999999999" },
     {
       id: 2,
@@ -19,9 +32,9 @@ const App = () => {
       phone: "33333333333"
     },
     { id: 3, name: "sravan", email: "sravan@gmail.com", phone: "5555555555" }
-  ];
+  ];*/
 
-  const initialFormState = { id: null, name: "", email: "", phone: "" };
+  const initialFormState = useSelector(state => state.initialFormState); //{ id: null, name: "", email: "", phone: "" };
 
   // Setting state
   const [users, setUsers] = useState(usersData);
@@ -33,7 +46,8 @@ const App = () => {
   // CRUD operations
   const addUser = user => {
     user.id = users.length + 1;
-    setUsers([...users, user]);
+    dispatch(addUser(user));
+    //setUsers([...users, user]);
   };
 
   const updateNewModal = modal => {
@@ -87,7 +101,6 @@ const App = () => {
             ) : (
               <Fragment>
                 <AddUserForm
-                  addUser={addUser}
                   show={newModalShow}
                   updateNewModal={updateNewModal}
                   onHide={() => setNewModalShow(false)}
@@ -95,6 +108,7 @@ const App = () => {
               </Fragment>
             )}
           </div>
+
           <div className="row mb-4">
             <div className="col-sm-12 grid-margin">
               <div className="card h-100">
