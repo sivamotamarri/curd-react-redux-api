@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Form, Button, Col } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { editUser } from "./actions/userActions";
 
-const EditUserForm = props => {
+const EditUserForm = (props) => {
+  const dispatch = useDispatch();
+
   const [user, setUser] = useState(props.currentUser);
 
   useEffect(() => {
@@ -10,13 +14,13 @@ const EditUserForm = props => {
   }, [props]);
   // You can tell React to skip applying an effect if certain values haven’t changed between re-renders. [ props ]
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
 
     setUser({ ...user, [name]: value });
   };
 
-  const handleCancelEvent = event => {
+  const handleCancelEvent = (event) => {
     props.setEditing(false);
     props.updateEditModal(false);
   };
@@ -33,10 +37,11 @@ const EditUserForm = props => {
       </Modal.Header>
       <Modal.Body>
         <Form
-          onSubmit={event => {
+          onSubmit={(event) => {
             event.preventDefault();
-
-            props.updateUser(user.id, user);
+            props.setEditing(false);
+            //props.updateUser(user.id, user);
+            dispatch(editUser(user));
             props.updateEditModal(false);
           }}
         >

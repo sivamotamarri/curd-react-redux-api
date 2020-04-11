@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Col } from "react-bootstrap";
 import { addUser } from "./actions/userActions";
 
-const AddUserForm = props => {
+const AddUserForm = (props) => {
   console.log(props);
-  const usersData = useSelector(state => state.users);
-  const initialFormState = useSelector(state => state.initialFormState);
+  const usersData = useSelector((state) => state.users);
+  const initialFormState = useSelector((state) => state.initialFormState);
   const [user, setUser] = useState(initialFormState);
   const [users, setUsers] = useState(usersData);
+
   const dispatch = useDispatch();
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
 
     setUser({ ...user, [name]: value });
@@ -30,7 +31,7 @@ const AddUserForm = props => {
       </Modal.Header>
       <Modal.Body>
         <Form
-          onSubmit={event => {
+          onSubmit={(event) => {
             event.preventDefault();
             if (!user.name || !user.email || !user.phone) return;
             dispatch(addUser(user));

@@ -2,12 +2,15 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Table, Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { removeUser, setDeleteUsers } from "./actions/userActions";
 
-const UserTable = props => {
-  const users = useSelector(state => state.users);
-  console.log("hi");
-  console.log(users);
-  console.log(props);
+const UserTable = (props) => {
+  const dispatch = useDispatch();
+
+  const searchedUsers = useSelector((state) => state.searchedUsers);
+  const initUsers = useSelector((state) => state.users);
+  const users = searchedUsers.length > 0 ? searchedUsers : initUsers;
+
   return (
     <div className="card-body">
       <Table striped hover responsive>
@@ -21,14 +24,17 @@ const UserTable = props => {
           </tr>
         </thead>
         <tbody>
-          {props.users.length > 0 ? (
-            props.users.map(user => (
+          {users.length > 0 ? (
+            users.map((user) => (
               <tr key={user.id}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
                 <td>
-                  <Form.Check aria-label="option 1" />
+                  <Form.Check
+                    aria-label="option 1"
+                    onChange={() => dispatch(setDeleteUsers(user.id))}
+                  />
                 </td>
                 <td>
                   <button
@@ -41,7 +47,7 @@ const UserTable = props => {
                     Edit
                   </button>
                   <button
-                    onClick={() => props.deleteUser(user.id)}
+                    onClick={() => dispatch(removeUser(user.id))}
                     className="button muted-button"
                   >
                     Delete
