@@ -17,8 +17,8 @@ const UserTable = (props) => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
+            <th>Salary</th>
+            <th>Age</th>
             <th></th>
             <th>Actions</th>
           </tr>
@@ -27,9 +27,9 @@ const UserTable = (props) => {
           {users.length > 0 ? (
             users.map((user) => (
               <tr key={user.id}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.phone}</td>
+                <td>{user.employee_name}</td>
+                <td>{user.employee_salary}</td>
+                <td>{user.employee_age}</td>
                 <td>
                   <Form.Check
                     aria-label="option 1"

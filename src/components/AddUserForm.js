@@ -33,7 +33,12 @@ const AddUserForm = (props) => {
         <Form
           onSubmit={(event) => {
             event.preventDefault();
-            if (!user.name || !user.email || !user.phone) return;
+            if (
+              !user.employee_name ||
+              !user.employee_salary ||
+              !user.employee_age
+            )
+              return;
             dispatch(addUser(user));
             //props.addUser(user);
 
@@ -50,39 +55,39 @@ const AddUserForm = (props) => {
               <Col>
                 <input
                   type="text"
-                  name="name"
-                  value={user.name}
+                  name="employee_name"
+                  value={user.employee_name}
                   onChange={handleInputChange}
                 />
               </Col>
             </Form.Row>
           </Form.Group>
 
-          <Form.Group controlId="email">
+          <Form.Group controlId="salary">
             <Form.Row>
               <Col>
-                <Form.Label>Email</Form.Label>
+                <Form.Label>Salary</Form.Label>
               </Col>
               <Col>
                 <input
                   type="text"
-                  name="email"
-                  value={user.email}
+                  name="employee_salary"
+                  value={user.employee_salary}
                   onChange={handleInputChange}
                 />
               </Col>
             </Form.Row>
           </Form.Group>
-          <Form.Group controlId="phone">
+          <Form.Group controlId="age">
             <Form.Row>
               <Col>
-                <Form.Label>Phone</Form.Label>
+                <Form.Label>Age</Form.Label>
               </Col>
               <Col>
                 <input
                   type="text"
-                  name="phone"
-                  value={user.phone}
+                  name="employee_age"
+                  value={user.employee_age}
                   onChange={handleInputChange}
                 />
               </Col>

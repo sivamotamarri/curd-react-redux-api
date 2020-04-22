@@ -1,17 +1,20 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import AddUserForm from "../components/AddUserForm";
 import EditUserForm from "../components/EditUserForm";
 import UserTable from "../components/UserTable";
 import ActionBar from "../components/ActionBar";
 import { useSelector, useDispatch } from "react-redux";
-import { searchUsers } from "../components/actions/userActions";
+import { searchUsers, getUsers } from "../components/actions/userActions";
 
 //import config from "./config";
 //import Firebase from "firebase";
 
 const App = (props) => {
   const dispatch = useDispatch();
+  const { users } = props;
+  // dispatch(getUsers());
 
   const initialFormState = useSelector((state) => state.initialFormState); //{ id: null, name: "", email: "", phone: "" };
 
@@ -40,6 +43,11 @@ const App = (props) => {
     dispatch(searchUsers(text));
   };
 
+  useEffect(() => {
+    console.log("in effect");
+    dispatch(getUsers());
+  }, []);
+
   //const deleteUser = (id) => {
   //setEditing(false);
 
@@ -57,9 +65,9 @@ const App = (props) => {
 
     setCurrentUser({
       id: user.id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
+      employee_name: user.employee_name,
+      employee_salary: user.employee_salary,
+      employee_age: user.employee_age,
     });
   };
 
@@ -99,6 +107,7 @@ const App = (props) => {
                   searchUsers={searchUser}
                 />
                 <UserTable
+                  users={users}
                   editRow={editRow}
                   updateEditModal={updateEditModal}
                 />
@@ -111,4 +120,20 @@ const App = (props) => {
   );
 };
 
+// const mapStateToProps = ({ users }) => {
+//   return {
+//     users,
+//   };
+// };
+
+// const mapActionsToProps = (dispatch) => {
+//   return bindActionCreators(
+//     {
+//       getUsers,
+//     },
+//     dispatch
+//   );
+// };
+
+// export default connect(mapStateToProps, mapActionsToProps)(App);
 export default App;

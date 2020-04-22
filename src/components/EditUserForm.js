@@ -53,38 +53,38 @@ const EditUserForm = (props) => {
               <Col>
                 <input
                   type="text"
-                  name="name"
-                  value={user.name}
+                  name="employee_name"
+                  value={user.employee_name}
                   onChange={handleInputChange}
                 />
               </Col>
             </Form.Row>
           </Form.Group>
-          <Form.Group controlId="email">
+          <Form.Group controlId="Salary">
             <Form.Row>
               <Col>
-                <Form.Label>Email</Form.Label>
+                <Form.Label>Salary</Form.Label>
               </Col>
               <Col>
                 <input
                   type="text"
-                  name="email"
-                  value={user.email}
+                  name="employee_salary"
+                  value={user.employee_salary}
                   onChange={handleInputChange}
                 />
               </Col>
             </Form.Row>
           </Form.Group>
-          <Form.Group controlId="Phone">
+          <Form.Group controlId="Age">
             <Form.Row>
               <Col>
-                <Form.Label>Phone</Form.Label>
+                <Form.Label>Age</Form.Label>
               </Col>
               <Col>
                 <input
                   type="text"
-                  name="phone"
-                  value={user.phone}
+                  name="employee_age"
+                  value={user.employee_age}
                   onChange={handleInputChange}
                 />
               </Col>

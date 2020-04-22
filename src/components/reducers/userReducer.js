@@ -1,67 +1,93 @@
 import {
+  FETCH_USERS_SUCCEEDED,
   ADD_USER,
   REMOVE_USER,
+  REMOVE_USER_SUCCEEDED,
   EDIT_USER,
   SEARCH_USERS,
   DELETE_SELECTED_USERS,
   HANDLE_CHANGE,
   SET_DELETE_USERS,
+  ADD_USER_SUCCEEDED,
+  EDIT_USER_SUCCEEDED,
 } from "../actions/action-types/user-actions";
 
 const initState = {
   users: [
-    { id: 1, name: "siva", email: "siva@gmail.com", phone: "9999999999" },
+    { id: 1, employee_name: "siva", employee_salary: 32000, employee_age: 32 },
     {
       id: 2,
-      name: "ramakrishna",
-      email: "ramakrishna@gmail.com",
-      phone: "33333333333",
+      employee_name: "ramakrishna",
+      employee_salary: 33000,
+      employee_age: 36,
     },
-    { id: 3, name: "sravan", email: "sravan@gmail.com", phone: "5555555555" },
+    {
+      id: 3,
+      employee_name: "sravan",
+      employee_salary: 34000,
+      employee_age: 35,
+    },
   ],
-  initialFormState: { id: null, name: "", email: "", phone: "" },
+  initialFormState: {
+    id: null,
+    employee_name: "",
+    employee_salary: "",
+    employee_age: "",
+  },
   searchText: "",
   searchedUsers: [],
   deleteUsers: [],
 };
 const findUsers = (users, text) => {
-  return users.filter(
-    (user) =>
-      user.name.toLowerCase().includes(text.toLowerCase()) ||
-      user.email.toLowerCase().includes(text.toLowerCase())
+  return users.filter((user) =>
+    user.employee_name.toLowerCase().includes(text.toLowerCase())
   );
 };
 
 const userReducer = (state = initState, action) => {
   switch (action.type) {
-    case ADD_USER:
-      const user = action.payload;
-      const users = state.users;
-      user.id = users.length + 1;
-      const updatedUsers = [...users, user];
+    case FETCH_USERS_SUCCEEDED:
+      console.log("asdsadasd");
+      console.log(action.payload);
+      return {
+        ...state,
+        users: action.payload,
+      };
+
+    case ADD_USER_SUCCEEDED:
+      const userPayload = action.payload;
+      const newUser = {
+        id: userPayload.id,
+        employee_name: userPayload.name,
+        employee_salary: userPayload.salary,
+        employee_age: userPayload.age,
+      };
+      const currentUsers = state.users;
+      const updatedUserList = [...currentUsers, newUser];
       return {
         ...state,
         searchedUsers: [],
-        users: updatedUsers,
+        users: updatedUserList,
       };
-    case REMOVE_USER:
+    case REMOVE_USER_SUCCEEDED:
       const leftusers = state.users.filter((user) => user.id !== action.id);
       return {
         ...state,
         searchedUsers: [],
         users: leftusers,
       };
-    case EDIT_USER:
-      const updatedUser = action.payload;
-      const editUsers = state.users;
-      const updatedUsersList = editUsers.map((user) =>
-        user.id === updatedUser.id ? updatedUser : user
+
+    case EDIT_USER_SUCCEEDED:
+      const updatedUser1 = action.payload;
+      const editUsers1 = state.users;
+      const updatedUsersList1 = editUsers1.map((user) =>
+        user.id === updatedUser1.id ? updatedUser1 : user
       );
 
       return {
         ...state,
         searchedUsers: [],
-        users: updatedUsersList,
+        users: updatedUsersList1,
       };
     case SEARCH_USERS:
       const searchText = state.searchText;
